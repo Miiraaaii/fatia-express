@@ -61,42 +61,81 @@ fatia-express/
 
 ---
 
-## ⚙️ Como Executar Localmente
+## 🏠 Guia Rápido: Como Continuar o Desenvolvimento em Casa
 
-### 1. Pré-requisitos
-* Ter o Python instalado (versão 3.10 ou superior).
+Se você for rodar este projeto em outro computador (Windows, macOS ou Linux), siga este passo a passo:
 
-### 2. Clonar ou Acessar a Pasta do Projeto
+### 1. Clonar o Repositório
 ```bash
-cd /home/abraaom/fatia-express
+# Via SSH (se já configurou a chave SSH no GitHub):
+git clone git@github.com:Miiraaaii/fatia-express.git
+
+# OU via HTTPS:
+git clone https://github.com/Miiraaaii/fatia-express.git
+
+cd fatia-express
 ```
 
-### 3. Ativar o Ambiente Virtual
-```bash
-# No Linux / macOS:
-source .venv/bin/activate
+### 2. Criar e Ativar o Ambiente Virtual (Virtualenv)
 
-# No Windows:
-# .venv\Scripts\activate
-```
+* **No Linux / macOS:**
+  ```bash
+  python3 -m venv .venv
+  source .venv/bin/activate
+  ```
 
-### 4. Instalar as Dependências (caso não tenha instalado)
+* **No Windows (PowerShell):**
+  ```powershell
+  python -m venv .venv
+  .venv\Scripts\Activate.ps1
+  ```
+  *(Se houver erro de permissão de script no PowerShell, execute `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`)*
+
+* **No Windows (Prompt de Comando / CMD):**
+  ```cmd
+  python -m venv .venv
+  .venv\Scripts\activate.bat
+  ```
+
+### 3. Instalar as Dependências
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5. Iniciar a Aplicação
+### 4. Executar a Aplicação
+O banco de dados SQLite (`fatia_express.db`) será **criado e semeado com dados automaticamente** na primeira inicialização!
 
-* **Modo Desktop (Janela nativa):**
+* **Modo Janela Desktop (Nativo):**
   ```bash
-  python3 main.py
+  python main.py
+  # ou python3 main.py
   ```
 
-* **Modo Web (no Navegador):**
-  Você também pode rodar no navegador caso deseje testar a interface web:
+* **Modo Web (Navegador com Hot-Reload):**
   ```bash
-  flet run main.py --web
+  flet run main.py --web --port 8550
   ```
+  Depois abra no seu navegador em: `http://localhost:8550`.
+
+---
+
+## 📌 Status Atual & Sugestões para Continuar
+
+### ✅ O que já está pronto e funcionando:
+* **Banco de Dados:** Schema SQLite completo (categorias, produtos, tamanhos, bordas, adicionais, pedidos e itens do pedido) com migração e seed automático.
+* **Arquitetura em Camadas:** Modelos desacoplados (`models/`), repositórios com suporte a transações atômicas (`repositories/`) e regras de negócio (`services/`).
+* **Cardápio e Customização:** Modal de montagem de pizza (escolha de massa, bordas, adicionais e observações), cálculo de preços e carrinho reativo.
+* **Painel da Cozinha (Kanban Operacional):** Visualização dos pedidos com filtros por status e botão para avançar etapas (`Recebido` ➔ `Em Preparo` ➔ `No Forno` ➔ `Saiu para Entrega` ➔ `Entregue`).
+* **Dashboard Analítico:** Indicadores de faturamento, pedidos entregues, taxa de entrega acumulada, gráficos e ranking de produtos mais vendidos.
+
+### 💡 Ideias de Próximas Features para Desenvolver em Casa:
+1. **Impressão de Comanda / PDF:** Gerar um comprovante ou PDF formatado para envio para a impressora térmica da cozinha.
+2. **Pagamento PIX Simulado:** Exibir um modal com QR Code e código Copia e Cola ao selecionar pagamento via PIX no checkout.
+3. **Notificação Sonora:** Tocar um alerta sonoro quando um novo pedido for criado no painel da cozinha.
+4. **Filtros e Busca no Cardápio:** Adicionar barra de pesquisa de produtos por nome ou ingredientes.
+5. **Exportação de Relatórios:** Botão no Dashboard para exportar o histórico de vendas para arquivo `.csv` ou `.xlsx`.
+
+---
 
 ---
 
