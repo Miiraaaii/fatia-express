@@ -1,5 +1,68 @@
 # 🍕 FatiaExpress - Sistema de Gestão e Pedidos de Pizzaria
 
+## Nova interface web responsiva
+
+A versão web usa **HTML, CSS e JavaScript**, com **Flask/Python e SQLite** no servidor. Funciona sem npm ou etapa de build e preserva o aplicativo Flet original. Os pedidos web usam as mesmas tabelas da cozinha existente.
+
+### Executar no Windows
+
+Na pasta do repositório, com Python 3.10 ou superior:
+
+```powershell
+python -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements-web.txt
+.venv\Scripts\python.exe web_app.py
+```
+
+Abra [http://127.0.0.1:8000](http://127.0.0.1:8000). No Linux/macOS, use `.venv/bin/python` nos dois últimos comandos. Não abra `web/index.html` diretamente: a página precisa da API local.
+
+### Recursos da versão web
+
+- Layout adaptável, carrinho lateral no computador e acesso fixo ao carrinho em telas pequenas.
+- Busca por nome e ingredientes sem depender de acentos, categorias e ordenação por preço ou nome.
+- Personalização por tamanho, borda, quantidade e observações; bebidas usam preço unitário.
+- Carrinho salvo no navegador, entrega com taxa de R$ 7,00 e retirada sem taxa.
+- Checkout com validação no servidor, preços recalculados a partir do catálogo e proteção contra duplicação ao repetir o mesmo envio.
+- Acompanhamento em **Meus pedidos**, protegido por um token por pedido. As atualizações da equipe aparecem na consulta; o navegador consulta a cada 20 segundos enquanto esse painel está aberto.
+- Imagens ilustrativas geradas por IA; prompts e origem em [web/assets/IMAGE_SOURCES.md](web/assets/IMAGE_SOURCES.md).
+
+O pagamento é **no recebimento**. Não há cobrança online, integração Pix bancária ou envio por WhatsApp. A seleção da forma de pagamento registra a preferência do cliente.
+
+### Dados e execução
+
+O banco padrão é `fatia_express.db`, na raiz. A variável `FATIA_DB_PATH` permite escolher outro arquivo; para compartilhar os pedidos, web e desktop devem usar o mesmo banco. A inicialização web cria o cardápio original, sem inserir pedidos fictícios. A inicialização desktop conserva o comportamento anterior de demonstração em bancos novos.
+
+O navegador guarda o carrinho e os tokens dos últimos 20 pedidos. Limpar os dados do navegador remove esse acesso; não existe conta ou recuperação de histórico nesta versão. O endereço e o telefone são gravados no banco para atendimento do pedido.
+
+### Validação
+
+```powershell
+.venv\Scripts\python.exe -m unittest discover -s tests -v
+```
+
+São 20 testes de integração, incluindo preços, retirada, disponibilidade, transações, concorrência, repetição de envio e acesso aos pedidos. Também foram verificados no navegador a personalização, a persistência do carrinho após recarregar, a validação de telefone, um pedido com retirada e a busca no layout móvel. A interface Flet original não foi revalidada nesta alteração.
+
+### Estrutura adicionada
+
+```text
+web_app.py                    # Servidor Flask e rotas HTTP
+services/web_order_service.py # Validação, preços, persistência e acompanhamento
+requirements-web.txt          # Dependência independente do Flet
+web/index.html                # Interface em português
+web/styles.css                # Layout responsivo e estados de interação
+web/app.js                    # Cardápio, carrinho, checkout e acompanhamento
+web/assets/                   # Fotos ilustrativas e identidade visual
+tests/test_web_app.py         # Testes com bancos temporários
+```
+
+### Uso em produção
+
+`python web_app.py` abre um servidor **local de desenvolvimento**. O envio deste código ao GitHub não publica um site. Antes de atender clientes, confirme catálogo, preços, taxa, área de entrega, endereço e horários da loja; configure hospedagem WSGI com HTTPS e operação administrativa autenticada. Não há integração de pagamento nem prazo de entrega automático. Consulte a [documentação oficial do Flask](https://flask.palletsprojects.com/en/stable/quickstart/).
+
+## Aplicativo Flet original
+
+As instruções e a descrição abaixo se referem à interface original. Para executá-la, use `requirements.txt` e `main.py`. Recursos descritos para o desktop não implicam implementação na nova interface web; por exemplo, não foi adicionado pedido meio a meio ou cadastro de adicionais.
+
 > **Aplicação Multiplataforma (Desktop e Mobile/Web) desenvolvida em Python com Flet e SQLite.**
 > Projeto projetado com foco em boas práticas de engenharia de software, arquitetura limpa em camadas (Layered Architecture) e padrões de projeto (Repository Pattern).
 

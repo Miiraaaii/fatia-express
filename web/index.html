@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ad3525">
+  <meta name="description" content="FatiaExpress: escolha sua pizza, personalize o tamanho e a borda e faça seu pedido para entrega ou retirada.">
+  <title>FatiaExpress — Sua próxima fatia favorita</title>
+  <link rel="icon" href="/static/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script type="module" src="/static/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#cardapio">Pular para o cardápio</a>
+  <div class="announcement">Pizza boa fica ainda melhor compartilhada. <span>Escolha a sua e aproveite.</span></div>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio" aria-label="FatiaExpress, início"><span class="brand-mark" data-icon="pizza"></span><span>fatia<span class="brand-light">express</span><small>UMA FATIA. MUITAS POSSIBILIDADES.</small></span></a>
+      <nav aria-label="Navegação principal"><a class="nav-active" href="#cardapio">Cardápio</a><a href="#como-pedir">Como pedir</a><button type="button" class="text-button" id="orders-button">Meus pedidos</button></nav>
+      <button type="button" class="basket-button" id="basket-button"><span data-icon="bag"></span><span class="basket-label">Meu pedido</span><span class="count-badge" data-cart-count>0</span></button>
+    </div>
+  </header>
+  <main id="inicio">
+    <section class="hero container" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="tiny-line"></span> SEU PRÓXIMO MOMENTO FAVORITO</p>
+        <h1 id="hero-title">Tudo fica melhor<br>com uma <em>boa fatia.</em></h1>
+        <p class="hero-description">Dos sabores clássicos àquela combinação especial.<br class="desktop-break"> A pizza que combina com a sua fome, do seu jeito.</p>
+        <a class="button primary hero-cta" href="#cardapio">Escolher minha pizza <span data-icon="arrow-right"></span></a>
+        <div class="hero-details"><span><span data-icon="oven"></span> Feita para o seu pedido</span><span><span data-icon="heart"></span> Para compartilhar</span></div>
+      </div>
+      <div class="hero-art">
+        <img class="hero-photo" src="/static/assets/hero.png" width="1536" height="1024" alt="Pizza de pepperoni com queijo derretido e manjericão, imagem ilustrativa" fetchpriority="high">
+        <div class="hero-stamp"><span data-icon="sparkles"></span> UMA BOA<br><strong>PEDIDA.</strong></div>
+        <div class="hero-caption"><span class="caption-dot"></span> Pepperoni Supremo <span>Do primeiro ao último pedaço.</span></div>
+      </div>
+    </section>
+    <div class="service-strip container">
+      <div><span class="service-icon" data-icon="scooter"></span><span><strong>Entrega ou retirada</strong><small>Você escolhe como receber</small></span></div>
+      <div><span class="service-icon" data-icon="pizza"></span><span><strong>Uma pizza do seu jeito</strong><small>Escolha tamanho, borda e observações</small></span></div>
+      <div><span class="service-icon" data-icon="wallet"></span><span><strong>Pagamento no recebimento</strong><small>Pix, cartão ou dinheiro</small></span></div>
+    </div>
+    <section class="menu-section container" id="cardapio" aria-labelledby="menu-title">
+      <div class="section-heading"><div><p class="eyebrow">ESCOLHA. PERSONALIZE. APROVEITE.</p><h2 id="menu-title">O que vai ser hoje?</h2></div><label class="search"><span data-icon="search"></span><input id="search" type="search" placeholder="Busque um sabor ou ingrediente" aria-label="Buscar sabor ou ingrediente" autocomplete="off"><kbd aria-hidden="true">/</kbd></label></div>
+      <div class="menu-layout">
+        <div class="menu-content">
+          <div class="category-list" id="categories" role="group" aria-label="Categorias do cardápio"></div>
+          <div class="menu-toolbar"><span id="results-count" role="status">Carregando o cardápio…</span><label>Ordenar por <select id="sort" aria-label="Ordenar produtos"><option value="menu">Destaques</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option><option value="name">Nome</option></select></label></div>
+          <div class="product-grid" id="products" aria-busy="true"><div class="loading-state"><span class="spinner"></span><p>Preparando o cardápio…</p></div></div>
+          <p class="image-note">Imagens ilustrativas. Preços das pizzas a partir do tamanho Brotinho; o valor final aparece na personalização.</p>
+        </div>
+        <aside class="cart-sidebar" aria-label="Resumo do pedido"><div id="desktop-cart" class="cart-panel"></div><div class="cart-note"><span data-icon="heart"></span><p>A melhor companhia para a sua pizza?<br>Quem você quiser à mesa.</p></div></aside>
+      </div>
+    </section>
+    <section class="how-section" id="como-pedir" aria-labelledby="how-title"><div class="container"><div class="how-heading"><p class="eyebrow">DA ESCOLHA À PRIMEIRA FATIA</p><h2 id="how-title">Pedir é a parte fácil.</h2><p>Deixe a fome escolher. O resto é por aqui.</p></div><div class="how-grid"><article><span class="step-number">01</span><h3>Encontre seu sabor</h3><p>Explore as pizzas tradicionais, especiais, doces e as bebidas para acompanhar.</p></article><article><span class="step-number">02</span><h3>Deixe do seu jeito</h3><p>Escolha o tamanho, capriche na borda e conte como você gosta nas observações.</p></article><article><span class="step-number">03</span><h3>É só finalizar</h3><p>Informe seus dados, escolha entrega ou retirada e acompanhe em Meus pedidos.</p></article></div></div></section>
+  </main>
+  <footer class="footer container"><a href="#inicio" class="footer-brand">fatia<span>express</span><span class="footer-dot">.</span></a><p>Uma boa pizza. Um bom momento.</p><a href="#cardapio">Voltar ao cardápio <span data-icon="arrow-up"></span></a></footer>
+  <button type="button" class="mobile-cart" id="mobile-cart"><span class="count-badge" data-cart-count>0</span><span>Ver meu pedido</span><strong id="mobile-total">R$ 0,00</strong><span data-icon="arrow-right"></span></button>
+  <dialog class="product-dialog" id="product-dialog" aria-labelledby="product-title"><div id="product-detail"></div></dialog>
+  <dialog class="cart-dialog" id="cart-dialog" aria-label="Meu pedido"><div id="dialog-cart" class="cart-panel"></div></dialog>
+  <dialog class="checkout-dialog" id="checkout-dialog" aria-labelledby="checkout-title">
+    <div class="dialog-header"><div><p class="eyebrow">QUASE NA HORA DA PIZZA</p><h2 id="checkout-title">Finalizar pedido</h2></div><button type="button" class="icon-button" data-close="checkout-dialog" aria-label="Fechar finalização"><span data-icon="close"></span></button></div>
+    <form id="checkout-form">
+      <fieldset><legend>Como você quer receber?</legend><div class="delivery-toggle checkout-delivery"><label><input type="radio" name="delivery_type" value="ENTREGA" checked><span><span data-icon="scooter"></span> Entrega</span></label><label><input type="radio" name="delivery_type" value="BALCAO"><span><span data-icon="store"></span> Retirada</span></label></div></fieldset>
+      <div class="form-row"><label>Seu nome<input name="customer_name" autocomplete="name" minlength="2" maxlength="80" required placeholder="Como podemos chamar você?"></label><label>Celular com DDD<input name="customer_phone" autocomplete="tel" inputmode="tel" type="tel" maxlength="20" required placeholder="(11) 99999-9999"></label></div>
+      <label id="address-field">Endereço completo<textarea name="address" autocomplete="street-address" minlength="8" maxlength="280" rows="2" required placeholder="Rua, número, bairro e complemento"></textarea></label>
+      <p class="pickup-note" id="pickup-note" hidden>Retirada no balcão, sem taxa de entrega. Confirme o endereço e o horário da loja antes de sair.</p>
+      <fieldset><legend>Como você prefere pagar?</legend><p class="field-help">O pagamento é feito no recebimento. Nenhum valor será cobrado pelo site.</p><div class="payment-options"><label><input name="payment_method" type="radio" value="PIX" checked><span>Pix</span></label><label><input name="payment_method" type="radio" value="CARTAO_CREDITO"><span>Crédito</span></label><label><input name="payment_method" type="radio" value="CARTAO_DEBITO"><span>Débito</span></label><label><input name="payment_method" type="radio" value="DINHEIRO"><span>Dinheiro</span></label></div></fieldset>
+      <label>Algum detalhe para a entrega? <span class="optional">(opcional)</span><textarea name="notes" maxlength="500" rows="2" placeholder="Ponto de referência, troco ou outra observação"></textarea></label>
+      <div id="checkout-summary" class="checkout-summary"></div>
+      <p id="checkout-error" class="form-error" role="alert" hidden></p>
+      <button type="submit" class="button primary full-width" id="submit-order">Confirmar pedido <span data-icon="arrow-right"></span></button>
+      <p class="privacy-note"><span data-icon="lock"></span> Seus dados serão usados para atender este pedido.</p>
+    </form>
+  </dialog>
+  <dialog class="orders-dialog" id="orders-dialog" aria-labelledby="orders-title"><div class="dialog-header"><div><p class="eyebrow">DA COZINHA ATÉ VOCÊ</p><h2 id="orders-title">Meus pedidos</h2></div><button type="button" class="icon-button" data-close="orders-dialog" aria-label="Fechar meus pedidos"><span data-icon="close"></span></button></div><p class="field-help">Pedidos feitos neste navegador. Atualize para consultar o andamento.</p><div id="orders-list"></div><button type="button" class="button secondary full-width" id="refresh-orders"><span data-icon="refresh"></span> Atualizar pedidos</button></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <noscript><div class="noscript">Ative o JavaScript no navegador para acessar o cardápio e fazer seu pedido.</div></noscript>
+</body>
+</html>

@@ -4,6 +4,7 @@ FatiaExpress - Conexão e Inicialização do Banco de Dados SQLite.
 
 import os
 import sqlite3
+from contextlib import closing
 from pathlib import Path
 
 # Localização do banco de dados na raiz do projeto
@@ -11,18 +12,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DB_PATH = BASE_DIR / "fatia_express.db"
 
 
-def get_connection() -> sqlite3.Connection:
+def get_connection(db_path=None) -> sqlite3.Connection:
     """Retorna uma conexão configurada com o SQLite."""
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(db_path or os.environ.get("FATIA_DB_PATH") or DB_PATH, timeout=10)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON;")
     conn.execute("PRAGMA journal_mode = WAL;")
     return conn
 
 
-def init_database() -> None:
+def init_database(db_path=None) -> None:
     """Inicializa as tabelas do banco de dados e dados padrão se necessário."""
-    with get_connection() as conn:
+    with closing(get_connection(db_path)) as conn:
         cursor = conn.cursor()
 
         # Categorias
@@ -108,9 +109,9 @@ def init_database() -> None:
         conn.commit()
 
 
-def seed_data_if_empty() -> None:
+def seed_data_if_empty(include_demo_orders: bool = True, db_path=None) -> None:
     """Preenche dados iniciais no cardápio caso a base esteja vazia."""
-    with get_connection() as conn:
+    with closing(get_connection(db_path)) as conn:
         cursor = conn.cursor()
         cursor.execute("SELECT COUNT(*) AS count FROM products;")
         if cursor.fetchone()["count"] > 0:
@@ -188,7 +189,7 @@ def seed_data_if_empty() -> None:
 
         # Inserir pedidos de demonstração se a tabela estiver vazia
         cursor.execute("SELECT COUNT(*) AS count FROM orders;")
-        if cursor.fetchone()["count"] == 0:
+        if cursor.fetchone()["count"] == 0 and include_demo_orders:
             cursor.execute(
                 """
                 INSERT INTO orders (
